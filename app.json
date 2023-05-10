@@ -1,15 +1,17 @@
 {
   "expo": {
-    "name": "bde-xmars",
+    "name": "BDE XMars",
     "slug": "bde-xmars",
-    "version": "1.0.0",
+    "description": "L'appli officielle de ton BDE préféré !",
+    "version": "alpha 0.1.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/images/icon.png",
+    "primaryColor": "#009CB4",
     "userInterfaceStyle": "light",
     "splash": {
-      "image": "./assets/splash.png",
+      "image": "./assets/images/splash.png",
       "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
+      "backgroundColor": "#009CB4"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -19,12 +21,22 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
-        "backgroundColor": "#ffffff"
+        "foregroundImage": "./assets/images/adaptive-icon.png",
+        "backgroundColor": "#009CB4"
       }
     },
+    "androidNavigationBar": {
+      "backgroundColor": "white",
+      "barStyle": "dark-content"
+    },
     "web": {
-      "favicon": "./assets/favicon.png"
-    }
+      "favicon": "./assets/images/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "b4f9e0dd-7c2d-4d9d-91ee-532b3abfb141"
+      }
+    },
+    "owner": "golden-man"
   }
 }

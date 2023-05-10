@@ -1,20 +1,56 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useCallback, useEffect, useState } from 'react';
+import { View, Text } from 'react-native';
+import Entypo from '@expo/vector-icons/Entypo';
+import * as SplashScreen from 'expo-splash-screen';
+import * as Font from 'expo-font';
+import Navbar from './src/components/navbar/Navbar';
+
+SplashScreen.preventAutoHideAsync();
 
 export default function App() {
+  const [appIsReady, setAppIsReady] = useState(false);
+  const [page, setPage] = useState("home");
+
+  useEffect(() => {
+    async function prepare() {
+      try {
+        await Font.loadAsync(Entypo.font);
+        await Font.loadAsync({
+          PolyFont: require("./assets/fonts/polyfont-medium.ttf"),
+          PolyFontBold: require("./assets/fonts/polyfont-heavy.ttf"),
+          Downtempo: require("./assets/fonts/Downtempo-Medium.ttf"),
+          DowntempoLight: require("./assets/fonts/Downtempo-Light.ttf"),
+          DowntempoBold: require("./assets/fonts/Downtempo-Bold.ttf"),
+          Calibri: require("./assets/fonts/calibri-regular.ttf"),
+        });
+      } catch (e) {
+        console.warn(e);
+      } finally {
+        setAppIsReady(true);
+      }
+    }
+
+    prepare();
+  }, []);
+
+  const onLayoutRootView = useCallback(async () => {
+    if (appIsReady) {
+      await SplashScreen.hideAsync();
+    }
+  }, [appIsReady]);
+
+  if (!appIsReady) {
+    return null;
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View
+      style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
+      onLayout={onLayoutRootView}>
+
+        <Text>{page}</Text>
+
+      <Navbar current={page} pageSetter={setPage}></Navbar>
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
