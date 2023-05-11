@@ -1,15 +1,15 @@
 import { StyleSheet, View } from 'react-native';
+import { SafeAreaView  } from 'react-native-safe-area-context';
 import NavbarButton from "./NavbarButton";
 
 const navbar_style = StyleSheet.create({
     container: {
-        position: "absolute",
+        position: "relative",
         bottom: 0,
         width: "100%",
         justifyContent: "space-around",
         alignItems: "center",
         flexDirection: "row",
-        padding: 10,
         borderTopColor: "#ccc",
         borderTopWidth: StyleSheet.hairlineWidth
     }
@@ -17,7 +17,7 @@ const navbar_style = StyleSheet.create({
 
 export default function Navbar({current, pageSetter}) {
     return (
-        <View style={navbar_style.container}>
+        <SafeAreaView style={navbar_style.container}>
             <NavbarButton
                 name="home"
                 text="Accueil"
@@ -42,6 +42,6 @@ export default function Navbar({current, pageSetter}) {
                 selected={current == "open-book"}
                 stateSetter={pageSetter}
             ></NavbarButton>
-        </View>
+        </SafeAreaView>
     );
 }

@@ -6,6 +6,7 @@ const navbar_button_style = StyleSheet.create({
     link: {
         justifyContent: "center",
         alignItems: "center",
+        padding: 10
     },
     link_text: {
         fontSize: 11,
