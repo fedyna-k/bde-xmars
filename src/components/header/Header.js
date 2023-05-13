@@ -25,19 +25,19 @@ const header_style = StyleSheet.create({
     }
 })
 
-export default function Header({pageSetter}) {
+export default function Header({pageSetter, current}) {
+    const intragram_url = "instagram://user?username=bde_polytech_marseille";
+    const intragram_web = "https://www.instagram.com/bde_polytech_marseille";
+
     return (
         <SafeAreaView style={header_style.container}>
-            <Pressable onPress={() => Linking.openURL('instagram://user?username=bde_polytech_marseille')
-  .catch(() => {
-    Linking.openURL('https://www.instagram.com/bde_polytech_marseille');
-  })
-}>
+            <Pressable onPress={() => Linking.openURL(intragram_url)
+                .catch(() => {Linking.openURL(intragram_web);})}>
                 <Text style={header_style.logo}>BDE XMars</Text>
             </Pressable>
 
-            <Pressable style={header_style.link}>
-                <MaterialIcons name="person" size={28} />
+            <Pressable style={header_style.link} onPress={() => pageSetter("menu")}>
+                <MaterialIcons style={{"color": current == "menu" ? "#009CB4" : "#2A2A2A"}} name="person" size={28} />
             </Pressable>
         </SafeAreaView>
     );

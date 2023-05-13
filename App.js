@@ -51,7 +51,7 @@ export default function App() {
     <SafeAreaView
       style={{ flex: 1, alignItems: 'center', justifyContent: "space-between" }}
       onLayout={onLayoutRootView}>
-      <Header pageSetter={setPage}></Header>
+      <Header current={page} pageSetter={setPage}></Header>
 
       <SafeAreaView style={{flex: 1, paddingVertical: 10}}>
         <Text>L'appli officielle de ton BDE préféré !</Text>
