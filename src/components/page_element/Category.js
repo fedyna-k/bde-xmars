@@ -1,5 +1,5 @@
 import React from "react";
-import { ScrollView, StyleSheet, View, Text } from "react-native";
+import { FlatList, StyleSheet, View, Text } from "react-native";
 import ImageLink from "./ImageLink";
 
 const category_style = StyleSheet.create({
@@ -23,30 +23,27 @@ const category_style = StyleSheet.create({
 
 
 export default function Category({title, subtitle, items, pageSetter}) {
-    function createChildren() {
-        let rendered = [];
-        for (let item of items) {
-            rendered.push(<ImageLink
+    function createChild({item}) {
+        return (<ImageLink
                 image={item.image}
                 link={item.link}
                 description={item.description}
                 pageSetter={pageSetter}
                 key={item.description}
             ></ImageLink>);
-        }
-
-        return rendered;
     }
 
     return (
         <View style={category_style.main}>
-            {
-                (subtitle) ? (<Text style={category_style.subtitle}>{subtitle}</Text>) : undefined
-            }
+            {(subtitle) ? (<Text style={category_style.subtitle}>{subtitle}</Text>) : undefined}
             <Text style={category_style.title}>{title}</Text>
-            <ScrollView horizontal={true} overScrollMode="never">
-                {createChildren()}
-            </ScrollView>
+            <FlatList
+                horizontal={true}
+                overScrollMode="never"
+                showsHorizontalScrollIndicator={false}
+                renderItem={createChild}
+                data={items}>
+            </FlatList>
         </View>
     );
 }

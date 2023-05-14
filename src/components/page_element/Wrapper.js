@@ -40,6 +40,7 @@ export default function Wrapper({children, onRefresh}) {
                 style={wrapper_style.scroll}
                 overScrollMode="never"
                 refreshControl={getResheshElement()}
+                showsVerticalScrollIndicator={false}
             >
                 {children}
             </ScrollView>
