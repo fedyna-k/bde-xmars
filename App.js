@@ -1,5 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { View, Text, Button, Linking, SafeAreaView } from 'react-native';
+import { Text, BackHandler } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 import Entypo from '@expo/vector-icons/Entypo';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import * as SplashScreen from 'expo-splash-screen';
@@ -8,11 +9,14 @@ import * as Font from 'expo-font';
 import Navbar from './src/components/navbar/Navbar';
 import Header from './src/components/header/Header';
 
+import Accueil from './src/pages/Accueil';
+
 SplashScreen.preventAutoHideAsync();
 
 export default function App() {
   const [appIsReady, setAppIsReady] = useState(false);
   const [page, setPage] = useState("home");
+  const [pageStack, setStack] = useState(["home"]);
 
   useEffect(() => {
     async function prepare() {
@@ -37,6 +41,25 @@ export default function App() {
     prepare();
   }, []);
 
+  useEffect(() => {
+    if (page != pageStack.at(-1)) {
+      setStack(pageStack.concat(page));
+    }
+    if (page == pageStack.at(-2)) {
+      setStack(pageStack.slice(0, -1));
+    }
+  }, [page]);
+
+  BackHandler.addEventListener("hardwareBackPress", () => {
+    if (page != "home") {
+      setPage(pageStack.at(-2));
+      return true;
+    }
+
+    BackHandler.exitApp();
+    return false;
+  });
+
   const onLayoutRootView = useCallback(async () => {
     if (appIsReady) {
       await SplashScreen.hideAsync();
@@ -53,9 +76,15 @@ export default function App() {
       onLayout={onLayoutRootView}>
       <Header current={page} pageSetter={setPage}></Header>
 
-      <SafeAreaView style={{flex: 1, paddingVertical: 10}}>
-        <Text>L'appli officielle de ton BDE préféré !</Text>
-      </SafeAreaView>
+      {
+        {
+          "home": (<Accueil pageSetter={setPage}></Accueil>),
+          "calendar": (<Text>EDT</Text>),
+          "images": (<Text>Photos</Text>),
+          "open-book": (<Text>Annales</Text>),
+          "menu": (<Text>Options</Text>),
+        }[page]
+      }
 
       <Navbar current={page} pageSetter={setPage}></Navbar>
     </SafeAreaView>

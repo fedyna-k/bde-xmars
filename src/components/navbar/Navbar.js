@@ -11,7 +11,8 @@ const navbar_style = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row",
         borderTopColor: "#ccc",
-        borderTopWidth: StyleSheet.hairlineWidth
+        borderTopWidth: StyleSheet.hairlineWidth,
+        backgroundColor: "#fff"
     }
 })
 

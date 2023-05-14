@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, Pressable, Image, Linking } from 'react-native';
+import { StyleSheet, Text, Pressable, Linking } from 'react-native';
 import { SafeAreaView  } from 'react-native-safe-area-context';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
@@ -12,7 +12,8 @@ const header_style = StyleSheet.create({
         alignItems: "center",
         flexDirection: "row",
         borderBottomColor: "#ccc",
-        borderBottomWidth: StyleSheet.hairlineWidth
+        borderBottomWidth: StyleSheet.hairlineWidth,
+        backgroundColor: "#fff"
     },
     link: {
         padding: 15
@@ -37,7 +38,7 @@ export default function Header({pageSetter, current}) {
             </Pressable>
 
             <Pressable style={header_style.link} onPress={() => pageSetter("menu")}>
-                <MaterialIcons style={{"color": current == "menu" ? "#009CB4" : "#2A2A2A"}} name="person" size={28} />
+                <MaterialIcons style={{color: current == "menu" ? "#009CB4" : "#2A2A2A"}} name="person" size={28} />
             </Pressable>
         </SafeAreaView>
     );
